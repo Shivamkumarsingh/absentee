@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  roll_number: 1
+  klass: one
+  section: one
+  primary_contact_number: MyString
+  secondary_contact_number: MyString
+
+two:
+  name: MyString
+  roll_number: 1
+  klass: two
+  section: two
+  primary_contact_number: MyString
+  secondary_contact_number: MyString
