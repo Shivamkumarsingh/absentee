@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Constant {
-  static const String name = "AcuFire";
-  static const Color AppColor = Color(0xFF061E51);
-  static const Color ButtonColor = Colors.green;
+  static const String name = "Absentee";
+  static const Color AppColor = Color(0xFF333745);
+  static const Color ButtonColor = Colors.red;
   static const String baseURL = "http://api.simplysmart.tech";
   static const String baseURLString = "api.simplysmart.tech";
   static const String signInAPI = baseURL + "/api/sessions/sign_in";
