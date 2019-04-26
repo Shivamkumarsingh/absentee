@@ -1,1 +1,3 @@
-= link_to 'Manage Classes', school_sections_path('4'), :class=>"btn btn-sm btn-success float-left"
+- id = School.first.id
+%br
+= link_to 'Manage Classes', school_sections_path(id), :class=>"btn btn-sm btn-warning float-right"

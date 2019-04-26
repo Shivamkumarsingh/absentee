@@ -16,7 +16,11 @@ end
 
 Klass.all.each do |div|
 	div.sections.each do |sec|
-	  sec.students.create([{name: "Mahesh", roll_number: 1},{name: "shivam", roll_number: 2},{name: "sweta", roll_number: 3},{name: "Tanya", roll_number: 4},{name: "Prateek", roll_number: 5}])
+	  sec.students.create([{name: "Mahesh", roll_number: 1, klass_id: div.id},
+      {name: "shivam", roll_number: 21, klass_id: div.id},
+      {name: "sweta", roll_number: 31, klass_id: div.id},
+      {name: "Tanya", roll_number: 41, klass_id: div.id},
+      {name: "Prateek", roll_number: 51, klass_id: div.id}])
 	end
 end
 
