@@ -22,16 +22,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = true;
     });
-   var deviceToken = await SharedPreferencesHelper.getDevice_token();
 
-   if (deviceToken != null && deviceToken.toString().length > 0){
      Map map = {
        'session[login]': usernameText,
        'session[password]': passwordText,
        'session[device_id]': 'Mobile',
        'third_party_apps': 'acufire',
        'user_login': 'true',
-       'session[notification_token]':deviceToken
+    //   'session[notification_token]':" "
      };
      print(map);
      // Await the http get response, then decode the json-formatted response.
@@ -84,11 +82,7 @@ class _LoginPageState extends State<LoginPage> {
 
      });
 
-   }else{
-     setState(() {
-       isLoading = false;
-     });
-   }
+
 
   }
   @override
@@ -142,7 +136,8 @@ class _LoginPageState extends State<LoginPage> {
           if (_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
             networkCheck.checkInternet((isNetworkPresent) {
               if(isNetworkPresent) {
-                 getSignInResponse(_usernameController.text, _passwordController.text);
+                // getSignInResponse(_usernameController.text, _passwordController.text);
+                 MyNavigator.goToHome(context);
               }else{
                 Constant().showDialogBox(context,"No Internet", "Please check yout internet Connection");
 

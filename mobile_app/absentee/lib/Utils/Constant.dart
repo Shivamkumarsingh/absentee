@@ -4,11 +4,11 @@ class Constant {
   static const String name = "Absentee";
   static const Color AppColor = Color(0xFF333745);
   static const Color ButtonColor = Colors.red;
-  static const String baseURL = "http://api.simplysmart.tech";
-  static const String baseURLString = "api.simplysmart.tech";
+  static const String baseURL = "http://50d343d2.ngrok.io";
+  static const String baseURLString = "50d343d2.ngrok.io";
   static const String signInAPI = baseURL + "/api/sessions/sign_in";
-  static const String senesorListAPI = "/api/admin/sensors";
-  static const String sensorReadingAPI = '/api/sensor_readings';
+  static const String classListAPI = baseURL +"/schools/10/sections";
+  static const String attendanceListAPI = baseURL + '/schools/10/sections';
 
   void showDialogBox(BuildContext context, String Title, String SubTitle) {
     showDialog(
