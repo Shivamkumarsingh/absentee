@@ -15,12 +15,13 @@ Klass.all.each do |div|
 end
 
 Klass.all.each do |div|
-	div.sections.each do |sec|
-	  sec.students.create([{name: "Mahesh", roll_number: 1},{name: "shivam", roll_number: 2},{name: "sweta", roll_number: 3},{name: "Tanya", roll_number: 4},{name: "Prateek", roll_number: 5}])
-	end
+  div.sections.each do |sec|
+    sec.students.create([{name: "Mahesh", roll_number: 1, klass_id: div.id},{name: "shivam", roll_number: 2, klass_id: div.id},
+    {name: "sweta", roll_number: 3, klass_id: div.id},{name: "Tanya", roll_number: 4, klass_id: div.id},{name: "Prateek", roll_number: 5, klass_id: div.id}])
+  end
 end
 
 
 Student.all.each do |student|
-	student.attendances.create(date: Time.now, klass_id: student.klass_id, section_id: student.section_id)
+  student.attendances.create(date: Time.now, klass_id: student.klass_id, section_id: student.section_id)
 end
