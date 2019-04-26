@@ -24,7 +24,6 @@ Klass.all.each do |div|
 	end
 end
 
-
 Student.all.each do |student|
 	student.attendances.create(date: Time.now, klass_id: student.klass_id, section_id: student.section_id)
 end
