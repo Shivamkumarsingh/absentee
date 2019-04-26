@@ -10,12 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_144518) do
+ActiveRecord::Schema.define(version: 2019_04_26_162019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "attendances", force: :cascade do |t|
+    t.datetime "date"
+    t.boolean "present"
+    t.bigint "klass_id"
+    t.bigint "student_id"
+    t.bigint "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["klass_id"], name: "index_attendances_on_klass_id"
+    t.index ["section_id"], name: "index_attendances_on_section_id"
+    t.index ["student_id"], name: "index_attendances_on_student_id"
+  end
 
   create_table "klasses", force: :cascade do |t|
     t.bigint "school_id"
@@ -68,6 +81,9 @@ ActiveRecord::Schema.define(version: 2019_04_26_144518) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attendances", "klasses"
+  add_foreign_key "attendances", "sections"
+  add_foreign_key "attendances", "students"
   add_foreign_key "klasses", "schools"
   add_foreign_key "sections", "klasses"
   add_foreign_key "students", "klasses"
