@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :students 
+  resources :students
   resources :schools , only: [] do
     resources :sections
   end
   resources :attendances
+  root 'schools#dashboard'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
