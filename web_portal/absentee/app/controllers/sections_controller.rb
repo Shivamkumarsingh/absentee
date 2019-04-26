@@ -12,10 +12,11 @@ class SectionsController < ApplicationController
   end
 
   def index
-    @klass = Klass.joins(:sections).where(school_id: params[:school_id]).select('name, title, klasses.id as id')
+    @sections = Section.joins(:klass).where("klasses.school_id": params[:school_id]).select('sections.name, title, klasses.id as klass_id, sections.id as id')
+
     respond_to do |format|
-      format.json { render json: @klass }
-      format.html
+      format.json { render json: @sections }
+      format.html { }
       format.js {}
     end
   end
