@@ -2,14 +2,23 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Absentee
+    %title AbsenteeApp
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-    = csp_meta_tag
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    - if notice
-      %p.alert.alert-success= notice
-    - if alert
-      %p.alert.alert-danger= alert
-    = yield
+    = render 'layouts/header'
+    - if current_user
+      .row
+        .col-md-2
+        .col-md-9
+          - unless flash.blank?
+            = render 'shared/flash'
+      = yield
+    - else
+      .row
+        .col-md-3
+        .col-md-6
+          - unless flash.blank?
+            = render 'shared/flash'
+          = yield

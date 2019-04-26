@@ -1,0 +1,19 @@
+- flash.each do |name, msg|
+  - case name
+    - when 'success'
+      .alert.alert-success
+        %a.close{ "data-dismiss" => "alert"}x
+        = msg
+    - when 'danger'
+      .alert.alert-danger
+        %a.close{ "data-dismiss" => "alert"}x
+        = msg
+    - when 'alert'
+      .alert.alert-danger
+        %a.close{ "data-dismiss" => "alert"}x
+        = msg
+    - when 'notice'
+      .alert.alert-info
+        %a.close{ "data-dismiss" => "alert"}x
+        = msg
+- flash.clear

@@ -13,7 +13,9 @@
 ActiveRecord::Schema.define(version: 2019_04_26_144518) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "klasses", force: :cascade do |t|
     t.bigint "school_id"
