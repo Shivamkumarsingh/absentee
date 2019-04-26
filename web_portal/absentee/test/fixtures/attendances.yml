@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-04-26 21:50:19
+  present: false
+  klass: one
+  student: one
+  section: one
+
+two:
+  date: 2019-04-26 21:50:19
+  present: false
+  klass: two
+  student: two
+  section: two
