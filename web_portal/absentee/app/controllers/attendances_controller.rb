@@ -36,7 +36,9 @@ class AttendancesController < ApplicationController
         if student.exists?
           Attendance.find_or_create_by!(section_id: attendance.first, student_id: student.first.id, date: Date.today,
           present: false, klass_id: klass_id)
+	  flash[:success] = "Updated Successfully!"
         else
+	  flash[:alert] = "Few roll numbers are invalid!"
           p '--------------------Invalid Roll Number ---------------'
         end
       end
