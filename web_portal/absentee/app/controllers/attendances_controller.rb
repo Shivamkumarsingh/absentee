@@ -44,6 +44,8 @@ class AttendancesController < ApplicationController
         if student.exists?
           Attendance.find_or_create_by!(section_id: attendance.first, student_id: student.first.id, date: Date.today,
           present: false, klass_id: klass_id)
+          numbers = Student.where(section_id: section.id, roll_number: valid_roll_numbers).pluck(:primary_contact_number).uniq
+          Sms.send(numbers)
         else
           error = true
 	        flash[:alert] = "Few roll numbers are invalid! Here is list #{invalid.join(' | ')}. Attendance for valid roll numbers is marked successfully!"
