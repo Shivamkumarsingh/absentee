@@ -17,3 +17,19 @@
 //= require popper
 //= require bootstrap
 //= require_tree .
+$(document).ready(function() {
+  $(function () {
+  	$('#form_take_attendance input[type=text]').bind('keypress keyclick blur',function(e){
+  		var key = e.keyCode;
+        if ((key >= 48 && key <= 57) || (key == 44)){
+        	console.log($(this));
+        	$(this).attr('class','form-control is_valid');
+            $(this).parent().parent('.row').find('.add_error').html("");
+        } else {
+        	$(this).removeClass('is_valid').addClass('is-invalid');
+        	$(this).parent().parent('.row').find('.add_error').html("Only numbers and comma allowed !");
+            return false;
+        }
+  	});
+  });
+});

@@ -13,3 +13,23 @@
  */
 
 @import "bootstrap";
+.content_box {
+	background-color:#f0f5f5;
+	padding:20px;
+}
+.btn-center-align{
+  display: flex;
+  align-items: center;
+  margin-top:20px;
+  justify-content: center;
+}
+.row {
+	padding:5px;
+}
+.label_form{
+	font-weight: 600;
+}
+.add_error {
+	margin: 0 auto;
+   	padding-left: 96px;
+}

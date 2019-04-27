@@ -1,4 +1,7 @@
 - id = School.last.id
 %br
-= link_to 'Manage Classes', school_sections_path(id), :class=>"btn btn-sm btn-warning float-right"
+%div.font-weight-bold
+  %strong.some{ :style => "font-size:20px;"} Take Attendence
+  = link_to 'Manage Classes', school_sections_path(id), :class=>"btn btn-sm btn-primary float-right"
+%br
 = render partial: 'attendances/attendance_list', :locals => {:school_id => id}

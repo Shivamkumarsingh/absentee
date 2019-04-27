@@ -1,5 +1,17 @@
-= form_for :attendance , url: bulk_attendance_create_path(school_id) do |f|
-  - @sections.each do |div|
-    = f.label div.divison.parameterize.underscore.to_sym
-    = f.text_field div.id
-  = f.submit
+= form_for :attendance , :html => {:id => "form_take_attendance"} , url: bulk_attendance_create_path(school_id) do |f|
+  %div.border.border-black.rounded.content_box
+    - @sections.each do |div1|
+      .row
+        .col-md-1
+        .col-md-3
+          - class_name = "Class " + div1.divison + "    :    "
+          = f.label class_name.upcase, class: "label_form"
+        .col-md-6
+          = f.text_field div1.id, class: "form-control"
+        .col-md-2
+        %span.add_error
+    .row
+      .col-md-4
+      .col-md-2
+        = f.submit :class => "btn btn-primary btn-center-align"
+      .col-md-6
