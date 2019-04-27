@@ -32,9 +32,13 @@ class AttendancesController < ApplicationController
       klass_id = Section.find(attendance.first).klass_id
       roll_ids = attendance.second.split(',').map(&:strip).reject(&:blank?)
       roll_ids.each do |id|
-        student_id = Student.where(roll_number: id).where(section_id: attendance.first).first
-        Attendance.find_or_create_by!(section_id: attendance.first, student_id: student.first, date: Date.today,
-        present: false, klass_id: klass_id)
+        student = Student.where(roll_number: id, section_id: attendance.first)
+        if student.exists?
+          Attendance.find_or_create_by!(section_id: attendance.first, student_id: student.first.id, date: Date.today,
+          present: false, klass_id: klass_id)
+        else
+          p '--------------------Invalid Roll Number ---------------'
+        end
       end
     end
     redirect_to root_path
