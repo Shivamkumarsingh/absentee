@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:absentee/Models/UserModel.dart';
 import 'package:absentee/Utils/SharedPreferencesHelper.dart';
 import 'package:absentee/Utils/Connectivity.dart';
+import 'dart:io';
+
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
 
@@ -17,50 +19,57 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var isLoading = false;
   NetworkCheck networkCheck = NetworkCheck();
+  Map<String, String> requestHeaders = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+  };
+  bool isEmail(String em) {
 
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
+  }
   Future getSignInResponse(String usernameText, String passwordText) async {
     setState(() {
       isLoading = true;
     });
 
      Map map = {
-       'session[login]': usernameText,
-       'session[password]': passwordText,
-       'session[device_id]': 'Mobile',
-       'third_party_apps': 'acufire',
-       'user_login': 'true',
-    //   'session[notification_token]':" "
+      'session' :{
+       'email': usernameText,
+       'password': passwordText,
+      }
      };
+
      print(map);
      // Await the http get response, then decode the json-formatted response.
-     await http.post(Constant.signInAPI, body: map, headers: {
-       'Accept': 'application/vnd.simplysmart.v1+json',
-       'Content-Type': 'application/x-www-form-urlencoded'
-     }).then((http.Response response){
-       if (response.statusCode == 200) {
+     await http.post(Constant.signInAPI, body: json.encode({
+       'session' :{
+         'email': usernameText,
+         'password': passwordText,
+       }
+     }), headers: requestHeaders).then((http.Response response){
+       if (response.statusCode == 201) {
+         setState(() {
+           isLoading = false;
+         });
          var jsonResponse = jsonDecode(response.body);
-         var authenticated = jsonResponse['authenticated'];
-         var message = jsonResponse['message'];
-         if (authenticated == true && message == "Signed in successfully.") {
+         var dataJson = jsonResponse['data'];
+         if(dataJson != null){
            var data = jsonResponse['data'];
-           var user = data['user'];
+           User userObject = User.fromJson(data);
 
-           User userObject = User.fromJson(user);
-           SharedPreferencesHelper.setUserID(userObject.id);
-           SharedPreferencesHelper.setUserName(userObject.username);
-           SharedPreferencesHelper.setUser(userObject.name);
-           SharedPreferencesHelper.setApi_key(userObject.api_key);
+           SharedPreferencesHelper.setUser("Tanya");
            SharedPreferencesHelper.setAuth_Token(userObject.auth_Token);
-           SharedPreferencesHelper.setEmail(userObject.email);
-           SharedPreferencesHelper.setRole_code(userObject.role_code);
-           SharedPreferencesHelper.setCompany_Subdomain(userObject.company.subdomain);
-           String sites = json.encode(user["sites"]);
-           SharedPreferencesHelper.setSiteId(sites);
-           setState(() {
-             isLoading = false;
-           });
-           print(sites);
+           SharedPreferencesHelper.setschoolName("Josh Private School");
            MyNavigator.goToHome(context);
+         }else{
+           var errorJson = jsonResponse['error'];
+           var message = errorJson['message'];
+           Constant().showDialogBox(context,"Log in Failed", "$message");
+
          }
        } else {
          setState(() {
@@ -81,8 +90,6 @@ class _LoginPageState extends State<LoginPage> {
        Constant().showDialogBox(context,"Log in Failed", "Error : $error");
 
      });
-
-
 
   }
   @override
@@ -108,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
       // initialValue: '',
       decoration: InputDecoration(
-        hintText: 'User ID',
+        hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
       ),
@@ -136,8 +143,13 @@ class _LoginPageState extends State<LoginPage> {
           if (_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
             networkCheck.checkInternet((isNetworkPresent) {
               if(isNetworkPresent) {
-                // getSignInResponse(_usernameController.text, _passwordController.text);
-                 MyNavigator.goToHome(context);
+               if (isEmail(_usernameController.text)){
+                 getSignInResponse(_usernameController.text, _passwordController.text);
+               }
+               else{
+                 Constant().showDialogBox(context,"Unable to Proceed", "Enter valid email address");
+               }
+
               }else{
                 Constant().showDialogBox(context,"No Internet", "Please check yout internet Connection");
 

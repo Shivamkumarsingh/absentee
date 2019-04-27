@@ -11,10 +11,8 @@ void main() async {
   // Set default home.
   Widget _defaultHome =  LoginPage();
   // Get result of the login function.
-  String siteId = await SharedPreferencesHelper.getSiteId();
   String authToken = await SharedPreferencesHelper.getAuth_Token();
-  String apikey = await SharedPreferencesHelper.getApi_key();
-  if (siteId.length > 0 && authToken.length > 0 && apikey.length > 0) {
+  if (authToken.length > 0) {
     _defaultHome =  HomeScreen();
   }
 

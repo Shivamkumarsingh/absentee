@@ -4,12 +4,11 @@ class Constant {
   static const String name = "Absentee";
   static const Color AppColor = Color(0xFF333745);
   static const Color ButtonColor = Colors.red;
-  static const String baseURL = "http://50d343d2.ngrok.io";
-  static const String baseURLString = "50d343d2.ngrok.io";
-  static const String signInAPI = baseURL + "/api/sessions/sign_in";
-  static const String classListAPI = baseURL +"/schools/10/sections";
-  static const String attendanceListAPI = baseURL + '/schools/10/sections';
-
+  static const String baseURL = "http://192.168.1.131:3000";
+  static const String baseURLString = "192.168.1.131:3000";
+  static const String signInAPI = baseURL + "/api/sign_in";
+  static const String classListAPI = baseURL +"/schools/3/sections";
+  static const String attendanceListAPI = baseURL + '/schools/3/sections';
   void showDialogBox(BuildContext context, String Title, String SubTitle) {
     showDialog(
         context: context,

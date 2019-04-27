@@ -3,7 +3,7 @@ class SharedPreferencesHelper {
   ///
   /// Instantiation of the SharedPreferences library
   ///
-  static final String _kUserId = "UserID";
+  static final String _kschoolName = "SchoolName";
   static final String _kUser = "User";
   static final String _kUserName = "UserName";
   static final String _kUserEmail = "UserEmail";
@@ -13,16 +13,16 @@ class SharedPreferencesHelper {
   static final String _kSiteId = "SiteId";
   static final String _kCompanySubdomain = "Company_Subdomain";
 
-  static Future<String> getUserID() async {
+  static Future<String> getschoolName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    return prefs.getString(_kUserId) ?? '';
+    return prefs.getString(_kschoolName) ?? '';
   }
 
-  static Future<bool> setUserID(String value) async {
+  static Future<bool> setschoolName(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    return prefs.setString(_kUserId, value);
+    return prefs.setString(_kschoolName, value);
   }
 
   static Future<String> getUser() async {
