@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_27_050102) do
+ActiveRecord::Schema.define(version: 2019_04_27_101850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendances", force: :cascade do |t|
-    t.datetime "date"
+    t.date "date"
     t.boolean "present"
     t.bigint "klass_id"
     t.bigint "student_id"
