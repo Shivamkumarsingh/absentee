@@ -1,24 +1,13 @@
 import 'package:absentee/Utils/Constant.dart';
 import 'package:absentee/Utils/my_navigator.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:absentee/Utils/SharedPreferencesHelper.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:absentee/Models/UserModel.dart';
 import 'package:absentee/Utils/Connectivity.dart';
 import 'package:absentee/Models/SensorModel.dart';
-import 'package:absentee/Utils/Constant.dart';
-import 'package:flutter/material.dart';
-import 'package:absentee/Utils/my_navigator.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:absentee/Models/UserModel.dart';
-import 'package:absentee/Utils/SharedPreferencesHelper.dart';
-import 'package:absentee/Utils/Connectivity.dart';
-import 'dart:io';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => new _HomeScreenState();
@@ -278,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Constant.AppColor,
-            title: Text(Constant.name),
+            title: Text('Class ${classList[selectedClass].title } - Div ${classList[selectedClass].name} ?? Absentee',
             actions: <Widget>[
               Padding(
                 child: sumitButton,
@@ -354,12 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child:
                                 Checkbox(value:isStudentPresent(sensorlist[index].present), onChanged: (value){
                                   setState(() {
-                                    if (sensorlist[index].present == null){
-                                      sensorlist[index].present = !value;
-                                    }else{
-                                      Constant().showDialogBox(context,"Alert", "Attendance already taken");
-                                    }
-
+                                      sensorlist[index].present = value;
 
                                   });
                                 } )
