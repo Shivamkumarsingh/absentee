@@ -1,9 +1,9 @@
 - sec = Section.where(id: params[:id]).first
 - class_name = sec.klass.title.to_s + ' - ' + sec.name.to_s
-%h3 Class Details: #{class_name}
-%h6= 'Today: ' + Date.today.to_s
+%h3 Class: #{class_name} - Today's Attendance
+%h5= 'Today: ' + Date.today.to_s
 %br
-%table.table.table-striped.table-bordered.table-hover.table-responsive
+%table.table.table-striped.table-bordered
   %colgroup
     %col(width="30%")
     %col(width="40%")
@@ -17,4 +17,5 @@
       %tr
         %td= c.roll_number
         %td= c.name
-        %td= c.attendances.where(date: Date.today).first.present
+        - is_present = c.attendances.where(date: Date.today).first ? 'Yes' : 'No'
+        %td= is_present

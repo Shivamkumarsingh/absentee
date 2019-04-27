@@ -27,14 +27,27 @@ class AttendancesController < ApplicationController
   end
 
   def bulk_attendance
+    invalid = []	  
     attendance_hash = params[:attendance].reject {|key, value| value == "" }
     attendance_hash.each do |attendance|
-      klass_id = Section.find(attendance.first).klass_id
+      section = Section.find(attendance.first)
+      klass = section.klass
+      klass_id = klass.id
       roll_ids = attendance.second.split(',').map(&:strip).reject(&:blank?)
+      
+      valid_roll_numbers = Student.where(section_id: section.id, roll_number: roll_ids).pluck(:roll_number)
+      invalid_roll_numbers = roll_ids - valid_roll_numbers
+      invalid << "Class #{klass.title} - #{section.name} : #{invalid_roll_numbers.join(',')}"  if invalid_roll_numbers.present?
       roll_ids.each do |id|
-        student_id = Student.where(roll_number: id).where(section_id: attendance.first).first
-        Attendance.find_or_create_by!(section_id: attendance.first, student_id: student.first, date: Date.today,
-        present: false, klass_id: klass_id)
+        student = Student.where(roll_number: id, section_id: attendance.first)
+        if student.exists?
+          Attendance.find_or_create_by!(section_id: attendance.first, student_id: student.first.id, date: Date.today,
+          present: false, klass_id: klass_id)
+	  flash[:success] = "Updated Successfully!"
+        else
+		flash[:alert] = "Few roll numbers are invalid! Here is list #{invalid.join(' | ')}. Attendance for valid roll numbers is marked successfully!"
+          p '--------------------Invalid Roll Number ---------------'
+        end
       end
     end
     redirect_to root_path
