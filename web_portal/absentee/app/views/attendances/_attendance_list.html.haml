@@ -1,0 +1,5 @@
+= form_for :attendance , url: bulk_attendance_create_path(school_id) do |f|
+  - @sections.each do |div|
+    = f.label div.divison.parameterize.underscore.to_sym
+    = f.text_field div.id
+  = f.submit

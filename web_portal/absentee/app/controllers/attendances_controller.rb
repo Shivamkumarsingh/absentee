@@ -8,7 +8,7 @@ class AttendancesController < ApplicationController
     klass_id = Section.find(section_id).klass_id
     absent_array = params[:attendance]
     absent_array.each do |student_id|
-      @attendance = Attendance.find_or_create(student_id: student_id, present: false,
+      @attendance = Attendance.find_or_create_by(student_id: student_id, present: false,
        section_id: section_id, klass_id: klass_id, date: Date.today)
     end
     respond_to do |format|
@@ -23,6 +23,20 @@ class AttendancesController < ApplicationController
   end
 
   def update
+  end
+
+  def bulk_attendance
+    attendance_hash = params[:attendance].reject {|key, value| value == "" }
+    attendance_hash.each do |attendance|
+      byebug
+      klass_id = Section.find(attendance.first).klass_id
+      student_ids = attendance.second.split(',').map(&:strip).reject(&:blank?)
+      student_ids.each do |id|
+        Attendance.find_or_create_by!(section_id: attendance.first, student_id: id, date: Date.today,
+        present: false, klass_id: klass_id)
+      end
+    end
+    redirect_to root_path
   end
 
   def todays_attendance
