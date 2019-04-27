@@ -1,14 +1,25 @@
 package sms
 
 import (
+	
+	"errors"
+	json "encoding/json"
 	api "github.com/tanya-saroha/absentee/sms_service/api"
 	"net/http"
 )
 
 func SendSMS() http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		err:=sendSMS(req.Context())	
-		println("err",err)
-		api.Success(http.StatusCreated, api.CreateResponse{Message: "send successfully", ID: "1234567890"}, rw)
+		
+		var request SMSRequest
+		err := json.NewDecoder(req.Body).Decode(&request)
+		if err != nil {
+			err = errors.New("json format error")
+			api.Error(http.StatusBadRequest, api.Response{Message: err.Error()}, rw)
+			return
+		}
+		response:=sendSMS(request)	
+		
+		api.Success(http.StatusCreated, response, rw)
 	})
 }
