@@ -31,3 +31,10 @@
 
 en:
   hello: "Hello world"
+  session:
+    create:
+      failure: 'User Login Failed'
+      success: 'Successfully Logged In'
+    destroy:
+      failure: 'User Log out Failed'
+      success: 'Successfully Logged Out'
