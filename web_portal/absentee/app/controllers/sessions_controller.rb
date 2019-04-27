@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def create
+    Rails.logger.info("params -------- #{params}")
     user = User.where(email: params[:session][:email]).first
     if user and user.valid_password?(params[:session][:password])
       respond_to do |format|

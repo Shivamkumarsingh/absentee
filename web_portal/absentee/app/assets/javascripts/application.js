@@ -19,10 +19,13 @@
 //= require_tree .
 $(document).ready(function() {
   $(function () {
-  	$('#form_take_attendance input[type=text]').bind('keypress keyclick blur',function(e){
+  	$('#form_take_attendance input[type=text]').bind('keypress keyclick',function(e){
   		var key = e.keyCode;
         if ((key >= 48 && key <= 57) || (key == 44)){
-        	console.log($(this));
+        	if(key == 44 && ($(this).val().length == 0)){
+        		$(this).parent().parent('.row').find('.add_error').html("Attendence is not started with comma!");	
+        		return false;
+        	}
         	$(this).attr('class','form-control is_valid');
             $(this).parent().parent('.row').find('.add_error').html("");
         } else {

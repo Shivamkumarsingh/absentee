@@ -11,10 +11,11 @@
     - if current_user
       .row
         .col-md-2
-        .col-md-9
+        .col-md-8
           - unless flash.blank?
             = render 'shared/flash'
-      = yield
+          = yield
+        .col-md-2
     - else
       .row
         .col-md-3
@@ -22,3 +23,4 @@
           - unless flash.blank?
             = render 'shared/flash'
           = yield
+        .col-md-3

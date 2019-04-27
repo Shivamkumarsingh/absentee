@@ -2,7 +2,7 @@
   %a.navbar-brand{:href => "/"} Presentee
   %form.form-inline
     -# %button.btn.btn-outline-warning{:type => "button"} Log Out
-    = link_to 'Logout', destroy_user_session_path, method: :delete, :class => "btn btn-outline-success" if current_user.present?
+    = link_to 'Logout', destroy_user_session_path, method: :delete, :class => "btn btn-danger" if current_user.present?
     -# %div{:style => "padding-left: 10px;"}
     -#   %button.btn.btn-outline-success{:type => "button"} Second button
 
