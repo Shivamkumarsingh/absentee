@@ -28,7 +28,6 @@ class AttendancesController < ApplicationController
   def bulk_attendance
     attendance_hash = params[:attendance].reject {|key, value| value == "" }
     attendance_hash.each do |attendance|
-      byebug
       klass_id = Section.find(attendance.first).klass_id
       student_ids = attendance.second.split(',').map(&:strip).reject(&:blank?)
       student_ids.each do |id|
