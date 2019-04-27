@@ -1,6 +1,7 @@
 %h1 All Classes in School
 %h6= 'Today: ' + Date.today.to_s
-= link_to 'Add Class', new_school_section_path, :class=>"btn btn-sm btn-warning float-right"
+= link_to 'Add Class', new_school_section_path, :class=>"btn btn-sm btn-warning float-right disabled"
+%br
 %br
 %table.table.table-striped.table-bordered.table-hover.table-responsive
   %colgroup
@@ -23,6 +24,6 @@
         %td= sec.as_json['title']
         %td= sec.as_json['name']
         %td= sec.students.count
-        %td= sec.attendances.where(date: Date.today, present: true).count
+        %td= sec.students.count - sec.attendances.where(date: Date.today, present: false).count
         %td= sec.attendances.where(date: Date.today, present: false).count
         %td= link_to 'View Class', school_section_path(sec.klass.school.id, sec.id), :class=>"btn btn-sm btn-success float-right"

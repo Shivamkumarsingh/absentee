@@ -17,5 +17,5 @@
       %tr
         %td= c.roll_number
         %td= c.name
-        - is_present = c.attendances.where(date: Date.today).first ? 'Yes' : 'No'
-        %td= is_present
+        - is_absent = c.attendances.where(date: Date.today, present: false).first ? 'No' : 'Yes'
+        %td= is_absent

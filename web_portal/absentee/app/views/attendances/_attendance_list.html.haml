@@ -19,7 +19,7 @@
           - class_name = "Class " + div1.divison + "    :    "
           = f.label class_name.upcase, class: "label_form"
         .col-md-6
-          = f.text_field div1.id, class: "form-control"
+          = f.text_field div1.id, class: "form-control", value: Attendance.joins(:student).where(date: Date.today, section: div1.id, present: false).select("students.roll_number as roll_number").collect(&:roll_number).join(",")
         .col-md-3.row_submit
           = f.submit 'Mark Absent', :class => "btn btn-danger"
         %span.add_error
