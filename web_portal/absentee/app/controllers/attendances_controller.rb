@@ -45,7 +45,7 @@ class AttendancesController < ApplicationController
           present: false, klass_id: klass_id)
 	  flash[:success] = "Updated Successfully!"
         else
-		flash[:alert] = "Few roll numbers are invalid! Here is list #{invalid.join(' | ')}"
+		flash[:alert] = "Few roll numbers are invalid! Here is list #{invalid.join(' | ')}. Attendance for valid roll numbers is marked successfully!"
           p '--------------------Invalid Roll Number ---------------'
         end
       end
