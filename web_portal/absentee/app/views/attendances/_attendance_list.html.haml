@@ -1,7 +1,18 @@
 = form_for :attendance , :html => {:id => "form_take_attendance"} , url: bulk_attendance_create_path(school_id) do |f|
   %div.border.border-black.rounded.content_box
+    .row.text-center
+      .col-md-1
+      .col-md-3
+        %b
+          %u
+            = "CLASS NAMES"
+      .col-md-6
+        %b
+          %u
+            = "ENTER ABSENT ROLL NUMBERS  (e.g: 20,25,33)"
+      .col-md-2
     - @sections.each do |div1|
-      .row
+      .row.text-center
         .col-md-1
         .col-md-3
           - class_name = "Class " + div1.divison + "    :    "
